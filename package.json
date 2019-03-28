@@ -1,0 +1,19 @@
+{
+  "name": "blg-api",
+  "version": "1.0.0",
+  "description": "Better Living Games API",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toChaim/BLG-API.git"
+  },
+  "author": "Chaim Finkelman",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/toChaim/BLG-API/issues"
+  },
+  "homepage": "https://github.com/toChaim/BLG-API#readme"
+}
