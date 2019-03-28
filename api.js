@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const api = express();
 
 // Middleware
+api.use(morgan('dev'));
+api.use(bodyParser.json());
 
 // Routes
 
