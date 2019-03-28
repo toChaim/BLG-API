@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/toChaim/BLG-API/issues"
   },
-  "homepage": "https://github.com/toChaim/BLG-API#readme"
+  "homepage": "https://github.com/toChaim/BLG-API#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "morgan": "^1.9.1"
+  }
 }
