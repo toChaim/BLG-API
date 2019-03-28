@@ -9,6 +9,7 @@ api.use(morgan('dev'));
 api.use(bodyParser.json());
 
 // Routes
+api.use('/users', require('./routes/users'));
 
 // Start Server
 const PORT = process.env.PORT || 3000;
