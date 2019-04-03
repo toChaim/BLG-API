@@ -2,8 +2,13 @@ const User = require('../models/user');
 
 module.exports = {
   signUp: async (req, res, next) => {
-    console.log('UsersController.signUp() called');
+    // get and sanatize data
     const { email, password } = req.value.body;
+    
+    // check for existing user
+    const foundUser = await User.findOne({ email: email });
+    if(foundUser){ return next({status: 403, message: 'email taken'}); }
+    
     const newUser = new User({
       email: email,
       password: password
