@@ -1,8 +1,14 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const api = express();
+
+// data base connection
+mongoose.connect('mongodb://localhost/BLG', {useNewUrlParser: true})
+  .then(()=>{ console.log('db connected'); })
+  .catch( err =>{ console.log('db connection FAILED\n' + err); });
 
 // Middleware
 api.use(morgan('dev'));
