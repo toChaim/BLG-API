@@ -2,13 +2,13 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const {PORT} = require('./Const');
 
 const api = express();
 
 // data base connection
-mongoose.connect('mongodb://localhost/BLG', {useNewUrlParser: true})
-  .then(()=>{ console.log('db connected'); })
-  .catch( err =>{ console.log('db connection FAILED\n' + err); });
+mongoose.Promise = Promise;
+mongoose.connect('mongodb://localhost/BLG', {useNewUrlParser: true});
 
 // Middleware
 api.use(morgan('dev'));
@@ -34,6 +34,5 @@ api.use((err, req, res, next)=>{
 });
 
 // Start Server
-const PORT = process.env.PORT || 3000;
 api.listen(PORT);
 console.log(`Server is Starting at ${PORT}`);
