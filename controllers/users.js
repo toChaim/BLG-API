@@ -5,10 +5,11 @@ module.exports = {
     // get and sanatize data
     const { email, password } = req.value.body;
     
-    // check for existing user
-    const foundUser = await User.findOne({ email: email });
-    if(foundUser){ return next({status: 403, message: 'email taken'}); }
-    
+    // // check for existing user
+    // if(await User.findOne({ email: email })){ 
+    //   return next({status: 403, message: 'email taken'}); 
+    // }
+
     const newUser = new User({
       email: email,
       password: password
@@ -16,7 +17,7 @@ module.exports = {
     await newUser.save();
     res.json(newUser);
   },
-  
+
   signIn: async (req, res, next) => {
     console.log('UsersController.signIn() called');
     res.json({message: 'signIn() called'});
