@@ -1,4 +1,6 @@
+const JWT = require('jsonwebtoken');
 const User = require('../models/user');
+const {SECRET} = require('../Const');
 
 module.exports = {
   signUp: async (req, res, next) => {
@@ -15,7 +17,14 @@ module.exports = {
       password: password
     });
     await newUser.save();
-    res.json(newUser);
+    now = new Date();
+    const token = JWT.sign({
+      iss: 'Better Living Games',
+      sub: newUser.id,
+      iat: now.getTime(),
+      exp: (1000 * 60 * 60 * 24 + now) / 1000,
+    },SECRET);
+    res.json(token);
   },
 
   signIn: async (req, res, next) => {
