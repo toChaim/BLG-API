@@ -8,7 +8,12 @@ const api = express();
 
 // data base connection
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://localhost/BLG', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/BLG', {
+  useCreateIndex: true,
+  useNewUrlParser: true
+})
+  .then(()=>{ console.log('db connected'); })
+  .catch( err =>{ console.log('db connection FAILED\n' + err); });
 
 // Middleware
 api.use(morgan('dev'));
