@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const {PORT} = require('./Const');
+const {PORT} = require('./configuration');
 
 const api = express();
 

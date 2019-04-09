@@ -1,6 +1,6 @@
 const JWT = require('jsonwebtoken');
 const User = require('../models/user');
-const {SECRET} = require('../Const');
+const {SECRET} = require('../configuration');
 
 module.exports = {
   signUp: async (req, res, next) => {
@@ -24,7 +24,7 @@ module.exports = {
       iat: now.getTime(),
       exp: (1000 * 60 * 60 * 24 + now) / 1000,
     },SECRET);
-    res.json(token);
+    res.json({token: token});
   },
 
   signIn: async (req, res, next) => {

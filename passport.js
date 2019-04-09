@@ -2,7 +2,7 @@ const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt');
 
-const {SECRET} = require('./Const');
+const {SECRET} = require('./configuration');
 const User = require('./models/user');
 
 passport.use(new JwtStrategy({
@@ -12,6 +12,7 @@ passport.use(new JwtStrategy({
 async(payload, done)=>{
   try{
     const user = await User.findById(payload.sub);
+    console.log('user={' + user + '}');
     return done(null, user || false);
   }
   catch(error){
