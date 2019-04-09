@@ -11,6 +11,6 @@ router.route('/signup').post(
 );
 router.route('/signin').post(UsersController.signIn);
 
-router.route('/secret').get(passport.authorize('jwt', {session: false}), UsersController.secret);
+router.route('/secret').get(passport.authenticate('jwt', {session: false}), UsersController.secret);
 
 module.exports = router;
