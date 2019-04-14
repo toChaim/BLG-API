@@ -3,12 +3,13 @@ const User = require('../models/user');
 const {SECRET} = require('../configuration');
 
 const signToken = user => {
-  return JWT.sign({
-    iss: 'Better Living Games',
-    sub: user.id,
-    iat: new Date().getTime(),
-    exp: new Date().setDate(new Date().getDate() + 1)},
-  SECRET);
+  return JWT.sign({},
+    SECRET,
+    {
+      subject: user.id,
+      issuer: 'Better Living Games',
+      expiresIn: '12h'
+    });
 };
 
 module.exports = {
@@ -25,6 +26,7 @@ module.exports = {
       email: email,
       password: password
     });
+
     await newUser.save();
     const token = signToken(newUser);
     res.json({token: token});
