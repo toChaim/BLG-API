@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const {PORT} = require('./configuration');
+const {PORT, ENV} = require('./configuration');
 
 const api = express();
 
@@ -34,7 +34,7 @@ api.use((err, req, res, next)=>{
   res.status(err.status || 500);
   return res.json({
     message: err.message,
-    error: api.get('env') === 'development' ? err : {}
+    error: ENV === 'development' ? err : {}
   });
 });
 
