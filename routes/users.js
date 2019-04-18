@@ -20,4 +20,15 @@ router.route('/secret').get(
   UsersController.secret
 );
 
+router.route('/').get(
+  (req,res,next)=>{
+    passport.authenticate('jwt', {session: false},(err, user, info)=>{
+      if(err){ return next(err); }
+      req.user = user;
+      return next();
+    })(req,res,next);
+  },
+  UsersController.getUsers
+);
+
 module.exports = router;
