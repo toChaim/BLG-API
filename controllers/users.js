@@ -41,4 +41,10 @@ module.exports = {
     console.log('UsersController.secret() called');
     res.json({message: 'secret() called'});
   },
+
+  getUsers: async (req, res, next)=>{
+    console.log('UsersController.getUsers() called', `User ${req.user? 'is': 'is not'} logged in.`);
+    const users = await User.find();
+    return res.json(users);
+  }
 };
