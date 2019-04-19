@@ -13,6 +13,11 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
+    },
+    visable: {
+      type: String,
+      required: true,
+      lowercase: true
     }
   }
 );

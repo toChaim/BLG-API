@@ -29,6 +29,11 @@ router.route('/').get(
     })(req,res,next);
   },
   UsersController.getUsers
+).post(
+  validateBody(schemas.authSchema),
+  UsersController.signUp,
+  passport.authenticate('local', {session: false}),
+  UsersController.signIn
 );
 
 module.exports = router;

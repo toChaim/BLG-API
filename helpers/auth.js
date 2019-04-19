@@ -17,7 +17,8 @@ module.exports = {
     authSchema: Joi.object().keys({
       email: Joi.string().email().required(),
       password: Joi.string().required(),
-      signup: Joi.bool()
+      signup: Joi.bool(),
+      visible: Joi.string()
     })
   }
 };

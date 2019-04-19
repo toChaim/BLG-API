@@ -15,7 +15,9 @@ const signToken = user => {
 module.exports = {
   signUp: async (req, res, next) => {
     // get and sanatize data
-    const { email, password } = req.value.body;
+    const { email, password, signup, visable='public' } = req.value.body;
+
+    if(!signup){ return next(); }
     
     // // check for existing user
     // if(await User.findOne({ email: email })){ 
@@ -24,7 +26,8 @@ module.exports = {
 
     const newUser = new User({
       email: email,
-      password: password
+      password: password,
+      visable: visable
     });
 
     await newUser.save();
@@ -34,7 +37,8 @@ module.exports = {
 
   signIn: async (req, res, next) => {
     console.log('UsersController.signIn() called');
-    res.json({message: 'signIn() called'});
+    const token = signToken(req.user);
+    res.json({token: token});
   },
   
   secret: async (req, res, next) => {
@@ -43,8 +47,10 @@ module.exports = {
   },
 
   getUsers: async (req, res, next)=>{
-    console.log('UsersController.getUsers() called', `User ${req.user? 'is': 'is not'} logged in.`);
-    const users = await User.find();
+    let where = {};
+    if(!req.user){ where['visable'] = 'public'; }
+    const users = await User.find(where);
     return res.json(users);
   }
+
 };
