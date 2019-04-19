@@ -40,4 +40,4 @@ api.use((err, req, res, next)=>{
 
 // Start Server
 api.listen(PORT);
-console.log(`Server is Starting at ${PORT}`);
+console.log(`Server is Starting ${ENV} enviorment at port ${PORT} `);
