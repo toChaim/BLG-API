@@ -5,7 +5,7 @@ module.exports = {
     return (req, res, next) => {
       const result = Joi.validate(req.body, schema);
       if(result.error){
-        return next({...result.error,status: 400});
+        return next({...result.error, status: 400});
       }
       if(!req.value){ req.value = {}; }
       req.value['body'] = result.value;
@@ -18,7 +18,7 @@ module.exports = {
       email: Joi.string().email().required(),
       password: Joi.string().required(),
       signup: Joi.bool(),
-      visible: Joi.string()
+      visable: Joi.string()
     })
   }
 };
