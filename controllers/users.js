@@ -51,6 +51,15 @@ module.exports = {
     if(!req.user){ where['visable'] = 'public'; }
     const users = await User.find(where);
     return res.json(users);
+  },
+
+  getUser: async (req, res, next)=>{
+    if(req.user && req.user.id === req.params.id){ return req.user; }
+    const target = await User.findById(req.params.id);
+    if(target && target.visable == 'public'){
+      return res.json(target);
+    }
+    next();
   }
 
 };
