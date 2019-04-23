@@ -36,7 +36,5 @@ router.route('/').get(
   UsersController.signIn
 );
 
-router.route('/:id').get((req,res,next)=>{
-  return res.json({'id': req.params.id});
-});
+router.route('/:id').get(UsersController.getUser);
 module.exports = router;
