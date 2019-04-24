@@ -60,6 +60,18 @@ module.exports = {
       return res.json(target);
     }
     next();
-  }
+  },
 
+  updateUser: async (req, res, next)=>{
+    if(req.user && req.user.id !== req.params.id){ return next(new Error('Unotherized')); }
+    const target = await User.findById(req.params.id);
+    return res.json(req.body);
+  },
+
+  deleteUser: async (req, res, next)=>{
+    if(req.user && req.user.id !== req.params.id){ return next(new Error('Unotherized')); }
+    const target = await User.findByIdAndDelete(req.params.id);
+    return res.json(target);
+  },
+   
 };

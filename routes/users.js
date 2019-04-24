@@ -36,5 +36,9 @@ router.route('/').get(
   UsersController.signIn
 );
 
-router.route('/:id').get(UsersController.getUser);
+router.route('/:id')
+  .get(UsersController.getUser)
+  .patch(UsersController.updateUser)
+  .delete(UsersController.deleteUser);
+
 module.exports = router;
