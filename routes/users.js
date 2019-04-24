@@ -5,6 +5,14 @@ const passportConf = require('../passport');
 const {validateBody, schemas} = require('../helpers/auth');
 const UsersController = require('../controllers/users');
 
+const jwt_auth = (req,res,next)=>{
+  passport.authenticate('jwt', {session: false},(err, user, info)=>{
+    if(err){ return next(err); }
+    req.user = user;
+    return next();
+  })(req,res,next);
+};
+
 router.route('/signup').post(
   validateBody(schemas.authSchema),
   UsersController.signUp
@@ -21,13 +29,7 @@ router.route('/secret').get(
 );
 
 router.route('/').get(
-  (req,res,next)=>{
-    passport.authenticate('jwt', {session: false},(err, user, info)=>{
-      if(err){ return next(err); }
-      req.user = user;
-      return next();
-    })(req,res,next);
-  },
+  jwt_auth,
   UsersController.getUsers
 ).post(
   validateBody(schemas.authSchema),
