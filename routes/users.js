@@ -23,11 +23,6 @@ router.route('/signin').post(
   UsersController.signIn
 );
 
-router.route('/secret').get(
-  passport.authenticate('jwt', {session: false}), 
-  UsersController.secret
-);
-
 router.route('/').get(
   jwt_auth,
   UsersController.getUsers
