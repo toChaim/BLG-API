@@ -39,8 +39,8 @@ router.route('/').get(
 );
 
 router.route('/:id')
-  .get(UsersController.getUser)
-  .patch(UsersController.updateUser)
-  .delete(UsersController.deleteUser);
+  .get(jwt_auth, UsersController.getUser)
+  .patch(jwt_auth, UsersController.updateUser)
+  .delete(jwt_auth, UsersController.deleteUser);
 
 module.exports = router;
