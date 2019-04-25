@@ -40,11 +40,6 @@ module.exports = {
     const token = signToken(req.user);
     res.json({token: token});
   },
-  
-  secret: async (req, res, next) => {
-    console.log('UsersController.secret() called');
-    res.json({message: 'secret() called'});
-  },
 
   getUsers: async (req, res, next)=>{
     let where = {};
