@@ -13,6 +13,11 @@ const jwt_auth = (req,res,next)=>{
   })(req,res,next);
 };
 
+const isCorrectUser = (req, res, next)=>{
+  if(!req.user || req.user.id !== req.params.id){ return next(new Error('Unotherized')); }
+  return next();
+};
+
 router.route('/signup').post(
   validateBody(schemas.authSchema),
   UsersController.signUp
@@ -35,7 +40,7 @@ router.route('/').get(
 
 router.route('/:id')
   .get(jwt_auth, UsersController.getUser)
-  .patch(jwt_auth, UsersController.updateUser)
-  .delete(jwt_auth, UsersController.deleteUser);
+  .patch(jwt_auth, isCorrectUser, UsersController.updateUser)
+  .delete(jwt_auth, isCorrectUser, UsersController.deleteUser);
 
 module.exports = router;
