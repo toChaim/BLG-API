@@ -3,7 +3,7 @@ const passport = require('passport');
 const passportConf = require('../passport');
 
 const {validateBody, schemas} = require('../helpers/auth');
-const UsersController = require('../controllers/users');
+const {signIn, signUp, getUser, updateUser,  deleteUser, getUsers} = require('../controllers/users');
 
 const jwt_auth = (req,res,next)=>{
   passport.authenticate('jwt', {session: false},(err, user, info)=>{
@@ -18,29 +18,25 @@ const isCorrectUser = (req, res, next)=>{
   return next();
 };
 
-router.route('/signup').post(
-  validateBody(schemas.authSchema),
-  UsersController.signUp
-);
-router.route('/signin').post(
-  validateBody(schemas.authSchema),
+router.route('/signup').post( validateBody(schemas.authSchema), signUp );
+router.route('/signin').post( 
+  validateBody(schemas.authSchema), 
   passport.authenticate('local', {session: false}),
-  UsersController.signIn
+  signIn
 );
 
-router.route('/').get(
-  jwt_auth,
-  UsersController.getUsers
-).post(
-  validateBody(schemas.authSchema),
-  UsersController.signUp,
-  passport.authenticate('local', {session: false}),
-  UsersController.signIn
-);
+router.route('/')
+  .get( jwt_auth, getUsers)
+  .post(
+    validateBody(schemas.authSchema),
+    signUp,
+    passport.authenticate('local', {session: false}),
+    signIn
+  );
 
 router.route('/:id')
-  .get(jwt_auth, UsersController.getUser)
-  .patch(jwt_auth, isCorrectUser, UsersController.updateUser)
-  .delete(jwt_auth, isCorrectUser, UsersController.deleteUser);
+  .get(jwt_auth, getUser)
+  .patch(jwt_auth, isCorrectUser, updateUser)
+  .delete(jwt_auth, isCorrectUser, deleteUser);
 
 module.exports = router;
